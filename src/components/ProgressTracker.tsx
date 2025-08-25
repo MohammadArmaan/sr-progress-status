@@ -1,7 +1,8 @@
-import { useProgress } from '@/contexts/ProgressContext';
-import { CheckCircle, Circle, Clock } from 'lucide-react';
+import React from "react";
+import { useProgress } from "@/contexts/ProgressContext";
+import { CheckCircle, Circle, Clock } from "lucide-react";
 
-const ProgressTracker = () => {
+const ProgressTracker: React.FC = () => {
   const { currentProgress, currentMilestone, milestones } = useProgress();
 
   return (
@@ -20,12 +21,9 @@ const ProgressTracker = () => {
       {/* Progress Bar */}
       <div className="mb-12 animate-slide-up">
         <div className="relative w-full h-3 bg-muted rounded-full overflow-hidden shadow-inner">
-          <div 
+          <div
             className="h-full bg-gradient-primary rounded-full transition-all duration-1000 ease-out"
-            style={{ 
-              width: `${currentProgress}%`,
-              boxShadow: '0 0 20px hsl(270 91% 35% / 0.5)'
-            }}
+            style={{ width: `${currentProgress}%`, boxShadow: "0 0 20px hsl(270 91% 35% / 0.5)" }}
           />
         </div>
         <div className="flex justify-between text-sm text-muted-foreground mt-2">
@@ -50,19 +48,19 @@ const ProgressTracker = () => {
       {/* Milestone Timeline */}
       <div className="space-y-4 animate-slide-up">
         <h3 className="text-xl font-semibold text-foreground mb-6">Project Timeline</h3>
-        {milestones.map((milestone, index) => {
+        {milestones.map((milestone) => {
           const isCompleted = currentProgress >= milestone.percentage;
           const isCurrent = currentMilestone.id === milestone.id;
-          
+
           return (
-            <div 
+            <div
               key={milestone.id}
               className={`flex items-center space-x-4 p-4 rounded-lg transition-all duration-300 ${
-                isCurrent 
-                  ? 'bg-primary/10 border border-primary/20' 
-                  : isCompleted 
-                    ? 'bg-accent/10 border border-accent/20'
-                    : 'bg-muted/50'
+                isCurrent
+                  ? "bg-primary/10 border border-primary/20"
+                  : isCompleted
+                  ? "bg-accent/10 border border-accent/20"
+                  : "bg-muted/50"
               }`}
             >
               <div className="flex-shrink-0">
@@ -73,16 +71,20 @@ const ProgressTracker = () => {
                 )}
               </div>
               <div className="flex-1">
-                <h4 className={`font-semibold ${isCurrent ? 'text-primary' : isCompleted ? 'text-accent-foreground' : 'text-muted-foreground'}`}>
+                <h4
+                  className={`font-semibold ${
+                    isCurrent ? "text-primary" : isCompleted ? "text-accent-foreground" : "text-muted-foreground"
+                  }`}
+                >
                   {milestone.name}
                 </h4>
                 <p className="text-sm text-muted-foreground">{milestone.description}</p>
               </div>
-              <div className={`text-sm font-medium px-3 py-1 rounded-full ${
-                isCompleted 
-                  ? 'bg-accent text-accent-foreground' 
-                  : 'bg-muted text-muted-foreground'
-              }`}>
+              <div
+                className={`text-sm font-medium px-3 py-1 rounded-full ${
+                  isCompleted ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
+                }`}
+              >
                 {milestone.percentage}%
               </div>
             </div>
